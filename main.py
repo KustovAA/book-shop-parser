@@ -1,6 +1,6 @@
+from argparse import ArgumentParser
+from urllib.parse import urljoin, unquote
 import os
-from select import select
-from urllib.parse import urljoin, urlsplit, unquote
 
 from bs4 import BeautifulSoup
 from pathvalidate import sanitize_filename
@@ -46,7 +46,12 @@ def parse_book_page(page):
 
 
 if __name__ == '__main__':
-        for book_id in range(1, 11):
+        parser = ArgumentParser()
+        parser.add_argument('--start_id', default=1)
+        parser.add_argument('--end_id', default=11)
+        args = parser.parse_args()
+
+        for book_id in range(args.start_id, args.end_id):
             try:
                 url = f'https://tululu.org/b{book_id}/'
                 response = requests.get(url, allow_redirects=False)
