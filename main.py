@@ -1,4 +1,5 @@
 import os
+from select import select
 from urllib.parse import urljoin, urlsplit, unquote
 
 from bs4 import BeautifulSoup
@@ -36,6 +37,8 @@ if __name__ == '__main__':
                 check_for_redirect(response)
                 soup = BeautifulSoup(response.text, 'lxml')
                 title = soup.find('h1').text.split('::')[0].strip()
+                comments = soup.select('.texts .black')
+                print([comment.text for comment in comments])
 
                 img = soup.find(class_='bookimage').find('img').attrs.get('src')
                 img_url = urljoin('https://tululu.org', img)
