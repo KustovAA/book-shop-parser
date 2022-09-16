@@ -32,7 +32,7 @@ if __name__ == '__main__':
         soup = BeautifulSoup(response.text, 'lxml')
         title = soup.find('h1').text.split('::')[0].strip()
 
-        filepath = download_txt(f'https://tululu.org/txt.php?id={book_id}', f'{title}.txt')
+        filepath = download_txt(f'https://tululu.org/txt.php?id={book_id}', f'{book_id}. {title}.txt')
 
         if (filepath):
             print(f'{filepath} downloaded')
