@@ -38,7 +38,9 @@ if __name__ == '__main__':
                 soup = BeautifulSoup(response.text, 'lxml')
                 title = soup.find('h1').text.split('::')[0].strip()
                 comments = soup.select('.texts .black')
+                genres = soup.select_one('.d_book:-soup-contains("Жанр книги:")').find_all('a')
                 print([comment.text for comment in comments])
+                print([genre.text for genre in genres])
 
                 img = soup.find(class_='bookimage').find('img').attrs.get('src')
                 img_url = urljoin('https://tululu.org', img)
