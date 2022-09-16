@@ -12,21 +12,38 @@ def check_for_redirect(response):
         raise requests.exceptions.HTTPError
 
 
-def download_txt(url, filename, folder='books/'):
+def download_file(
+    url,
+    filename,
+    folder,
+    get_content=lambda r: r.content,
+    mode='wb'
+):
     response = requests.get(url, allow_redirects=False)
     response.raise_for_status()
 
     check_for_redirect(response)
     filepath = os.path.join(folder, sanitize_filename(filename))
+
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
-    with open(filepath, 'wb') as file:
-        file.write(response.content)
+    with open(filepath, mode) as file:
+        file.write(get_content(response))
 
     return filepath
 
 
+def download_txt(url, filename, folder='books/'):
+    return download_file(
+        url,
+        filename,
+        folder,
+        get_content=lambda r: r.text,
+        mode='w'
+    )
+
+
 def download_image(url, filename, folder='images/'):
-    return download_txt(url, filename, folder)
+    return download_file(url, filename, folder)
 
 
 def parse_book_page(page):
