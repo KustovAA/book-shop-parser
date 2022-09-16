@@ -1,5 +1,5 @@
 from argparse import ArgumentParser
-from urllib.parse import urljoin, unquote
+from urllib.parse import urljoin, unquote, urlencode
 import os
 
 from bs4 import BeautifulSoup
@@ -64,7 +64,8 @@ if __name__ == '__main__':
 
                 img_url = urljoin(urljoin(url, '..'), img)
 
-                book_filepath = download_txt(f'https://tululu.org/txt.php?id={book_id}', f'{book_id}. {title}.txt')
+                params = {'id': book_id}
+                book_filepath = download_txt(f'https://tululu.org/txt.php?{urlencode(params)}', f'{book_id}. {title}.txt')
                 img_filepath = download_image(img_url, unquote(img).split('/')[-1])
 
                 if (book_filepath):
