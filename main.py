@@ -68,10 +68,10 @@ if __name__ == '__main__':
                 book_filepath = download_txt(f'https://tululu.org/txt.php?{urlencode(params)}', f'{book_id}. {title}.txt')
                 img_filepath = download_image(img_url, unquote(img).split('/')[-1])
 
-                if (book_filepath):
+                if book_filepath:
                     print(f'{book_filepath} downloaded')
 
-                if (img_filepath):
+                if img_filepath:
                     print(f'{img_filepath} downloaded')
             except requests.exceptions.HTTPError:
                 print(f'Book with with link {url} does not exist')
