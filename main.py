@@ -48,6 +48,15 @@ def download_image(url, filename, folder='images/'):
     return download_file(url, filename, folder)
 
 
+@retry(exceptions=requests.exceptions.ConnectionError, delay=1, backoff=2, tries=10)
+def download_book_page(url):
+    response = requests.get(url, allow_redirects=False)
+    response.raise_for_status()
+    check_for_redirect(response)
+
+    return response
+
+
 def parse_book_page(page):
     soup = BeautifulSoup(page, 'lxml')
     title, author = [item.strip() for item in soup.find('h1').text.split('::')]
@@ -75,9 +84,7 @@ if __name__ == '__main__':
         for book_id in range(start_id, end_id):
             try:
                 url = f'https://tululu.org/b{book_id}/'
-                response = requests.get(url, allow_redirects=False)
-                response.raise_for_status()
-                check_for_redirect(response)
+                response = download_book_page(url)
 
                 book = parse_book_page(response.text)
                 title = book['title']
