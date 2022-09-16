@@ -50,8 +50,10 @@ if __name__ == '__main__':
         parser.add_argument('--start_id', default=1)
         parser.add_argument('--end_id', default=11)
         args = parser.parse_args()
+        start_id = int(args.start_id)
+        end_id = int(args.end_id)
 
-        for book_id in range(args.start_id, args.end_id):
+        for book_id in range(start_id, end_id):
             try:
                 url = f'https://tululu.org/b{book_id}/'
                 response = requests.get(url, allow_redirects=False)
