@@ -62,7 +62,7 @@ if __name__ == '__main__':
                 title = book['title']
                 img = book['img']
 
-                img_url = urljoin('https://tululu.org', img)
+                img_url = urljoin(urljoin(url, '..'), img)
 
                 book_filepath = download_txt(f'https://tululu.org/txt.php?id={book_id}', f'{book_id}. {title}.txt')
                 img_filepath = download_image(img_url, unquote(img).split('/')[-1])
