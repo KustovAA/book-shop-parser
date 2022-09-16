@@ -47,11 +47,11 @@ def parse_book_page(page):
 
 if __name__ == '__main__':
         parser = ArgumentParser()
-        parser.add_argument('--start_id', default=1, help="id of first book in sequence")
-        parser.add_argument('--end_id', default=11, help="id of last book in sequence")
+        parser.add_argument('--start_id', type=int, default=1, help="id of first book in sequence")
+        parser.add_argument('--end_id', type=int, default=11, help="id of last book in sequence")
         args = parser.parse_args()
-        start_id = int(args.start_id)
-        end_id = int(args.end_id)
+        start_id = args.start_id
+        end_id = args.end_id
 
         for book_id in range(start_id, end_id):
             try:
