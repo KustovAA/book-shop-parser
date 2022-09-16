@@ -76,7 +76,9 @@ if __name__ == '__main__':
             try:
                 url = f'https://tululu.org/b{book_id}/'
                 response = requests.get(url, allow_redirects=False)
+                response.raise_for_status()
                 check_for_redirect(response)
+
                 book = parse_book_page(response.text)
                 title = book['title']
                 img = book['img']
