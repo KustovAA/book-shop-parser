@@ -5,6 +5,7 @@ import os
 from bs4 import BeautifulSoup
 from pathvalidate import sanitize_filename
 import requests
+from retry import retry
 
 
 def check_for_redirect(response):
@@ -12,6 +13,7 @@ def check_for_redirect(response):
         raise requests.exceptions.HTTPError
 
 
+@retry(exceptions=requests.exceptions.ConnectionError, delay=1, backoff=2, tries=10)
 def download_file(
     url,
     filename,
