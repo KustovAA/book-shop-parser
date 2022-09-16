@@ -58,10 +58,9 @@ if __name__ == '__main__':
                 url = f'https://tululu.org/b{book_id}/'
                 response = requests.get(url, allow_redirects=False)
                 check_for_redirect(response)
-                book_info = parse_book_page(response.text)
-                title = book_info['title']
-                img = book_info['img']
-                
+                book = parse_book_page(response.text)
+                title = book['title']
+                img = book['img']
 
                 img_url = urljoin('https://tululu.org', img)
 
