@@ -65,7 +65,7 @@ def parse_book_page(page):
 
 
 if __name__ == '__main__':
-        parser = ArgumentParser()
+        parser = ArgumentParser(description='Utility downloads books (book text in txt file, and cover) from tululu.org')
         parser.add_argument('--start_id', type=int, default=1, help="id of first book in sequence")
         parser.add_argument('--end_id', type=int, default=11, help="id of last book in sequence")
         args = parser.parse_args()
